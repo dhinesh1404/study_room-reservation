@@ -1,20 +1,44 @@
+<?php
+require_once "db_config.php";
+
+require_once "./welcome.php";
+?>
+
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
 </head>
 <body>
-    <h2>welcome, <?php echo $_SESSION['username']; ?> </h2>
 
+<!-- TOP SECTION -->
+<p>
+    Welcome, <?php echo $_SESSION['username']; ?>
+</p>
+
+<a href="my_booking.php">My Booking</a> |
+<a href="profile.php">Profile</a> |
+<a href="logout.php">Logout</a>
+
+<hr>
+
+<!-- ROOMS -->
+<h3>Available Rooms</h3>
+
+<?php
+$rooms = $db_conn->query("SELECT * FROM rooms WHERE status='available'");
+
+while ($room = $rooms->fetch_assoc()) {
+?>
+    <div>
+        <h4><?php echo $room['room_name']; ?></h4>
+        <p>Capacity: <?php echo $room['capacity']; ?></p>
+        <p>Location: <?php echo $room['location']; ?></p>
+
+        <a href="room.php?id=<?php echo $room['id']; ?>">Enter Room</a>
+    </div>
     <hr>
+<?php } ?>
 
-    <ul>
-        <li><a href="booking.php"> Book Room</a></li>
-        <li><a href="my_booking.php"> My Booking</a></li>
-        <li><a href="profile.php"> profile</a></li>
-    </ul>
-    
 </body>
 </html>

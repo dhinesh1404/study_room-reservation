@@ -60,7 +60,7 @@
         $_SESSION['username'] = $row['username'];
         $_SESSION['role'] = $row['role'];
 
-        header ("refresh: 2 ; URL= 'main.php'");
+        header ("refresh: 2 ; URL= 'dashboard.php'");
         echo "Login successful";
         exit;
 
