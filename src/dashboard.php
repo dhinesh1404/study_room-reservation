@@ -1,7 +1,6 @@
 <?php
 require_once "db_config.php";
 
-require_once "./welcome.php";
 ?>
 
 <!DOCTYPE html>
@@ -13,7 +12,7 @@ require_once "./welcome.php";
 
 <!-- TOP SECTION -->
 <p>
-    Welcome, <?php echo $_SESSION['username']; ?>
+    Welcome - <?php echo $_SESSION['username']; ?>
 </p>
 
 <a href="my_booking.php">My Booking</a> |

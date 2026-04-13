@@ -1,31 +1,53 @@
 <?php
-require_once "db_config.php";
 
+$room_id = isset($_GET['id'])? $_GET['id']: '';
 
-
-$room_id = $_GET['id'];
-
-// get room details
-$room = $db_conn->query("SELECT * FROM rooms WHERE id='$room_id'")->fetch_assoc();
-
-// selected date (default today)
-$date = $_GET['date'] ?? date('Y-m-d');
-
-// get all slots
-$slots = $db_conn->query("SELECT * FROM time_slots");
-
-// get booked slots for that room + date
-$booked = $db_conn->query("
-    SELECT time_slot_id FROM bookings 
-    WHERE room_id='$room_id' AND date='$date'
-");
-
-$booked_slots = [];
-while ($b = $booked->fetch_assoc()) {
-    $booked_slots[] = $b['time_slot_id'];
+// validate the room_id
+if(empty($room_id)) {
+    header("refresh: 2; URL= 'dashboard.php'");
+    echo "Invalid Room";
+    exit;
 }
-?>
 
+try{
+    // DB connect 
+    require_once "./db_config.php";
+
+    // get room details
+    $result = $db_conn->query("SELECT * FROM rooms WHERE id='$room_id'");
+
+    if($result->num_rows == 0) {
+        echo "Room not found";
+        exit;
+    }
+
+    $room = $result->fetch_assoc();
+
+    // selected date (default today)
+    $date = $_GET['date'] ?? date('Y-m-d');
+        
+    // get all slots
+    $slots = $db_conn->query("SELECT * FROM time_slots");
+
+    // get booked slots for that room + date
+    $booked = $db_conn->query("
+        SELECT time_slot_id FROM bookings 
+        WHERE room_id='$room_id' AND date='$date'
+    ");
+    $booked_slots = [];
+    while ($b = $booked->fetch_assoc()) {
+        $booked_slots[] = $b['time_slot_id'];
+    }
+    
+    
+    }catch (Exception $e){
+        // DB error message
+        echo "DB Error" .$e;
+    }
+    // DB close
+    $db_conn->close();
+
+?>
 <!DOCTYPE html>
 <html>
 <head>
