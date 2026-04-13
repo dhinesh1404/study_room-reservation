@@ -1,17 +1,19 @@
 <?php
     // get data
-    $user_id = isset($_POST['user_id'])? $_POST['user_id']: '';
+    // $user_id = isset($_POST['user_id'])? $_POST['user_id']: '';
     $room_id = isset($_POST['room_id'])? $_POST['room_id']: '';
     $time_slot_id = isset($_POST['time_slot_id'])? $_POST['time_slot_id']: '';
     $date = isset($_POST['date'])? $_POST['date']: '';
 
     // validation
-    if(empty($user_id) || empty($room_id) || empty($time_slot_id) || empty($date)) {
-        header("refresh: 2; URL= 'room.php'");
+    if(empty($room_id) || empty($time_slot_id) || empty($date)) {
+        header("refresh: 2; URL= 'room.php?id=$room_id'");
         echo "All Fields are required";
         exit;
 
     }
+
+    session_start();
     try{
 
         // DB Connect
@@ -36,7 +38,7 @@
 
         // new booking sql statement
         $insert_sql = "INSERT INTO bookings (user_id, room_id, time_slot_id, date, status)
-                        VALUES ('$user_id', '$room_id', '$time_slot_id', '$date', 'booked')";
+                        VALUES ('{$_SESSION['id']}', '$room_id', '$time_slot_id', '$date', 'booked')";
 
         // Execute query
         $result_inst = $db_conn->query($insert_sql);

@@ -16,6 +16,9 @@
 <body>
     <div class= "username">
         welcome, <?= $session_name ?>
+        <br>
+        <a href="my_booking.php">My Booking</a> |
+        <a href="profile.php">Profile</a> |
         <a href="logout.php">Logout</a>
     </div>
     

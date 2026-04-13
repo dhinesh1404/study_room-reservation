@@ -1,5 +1,6 @@
 <?php
 require_once "db_config.php";
+require_once "./welcome.php";
 
 ?>
 
@@ -11,13 +12,6 @@ require_once "db_config.php";
 <body>
 
 <!-- TOP SECTION -->
-<p>
-    Welcome - <?php echo $_SESSION['username']; ?>
-</p>
-
-<a href="my_booking.php">My Booking</a> |
-<a href="profile.php">Profile</a> |
-<a href="logout.php">Logout</a>
 
 <hr>
 

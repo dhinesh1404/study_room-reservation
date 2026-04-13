@@ -59,8 +59,9 @@
         session_start();
         $_SESSION['username'] = $row['username'];
         $_SESSION['role'] = $row['role'];
+        $_SESSION['id'] = $row['id'];
 
-        header ("URL= 'dashboard.php'");
+        header("Refresh: 2; URL='dashboard.php");
         echo "Login successful";
         exit;
 

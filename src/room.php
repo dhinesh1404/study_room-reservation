@@ -1,5 +1,7 @@
 <?php
 
+require_once './welcome.php';
+
 $room_id = isset($_GET['id'])? $_GET['id']: '';
 
 // validate the room_id
@@ -90,7 +92,7 @@ try{
         <div>
             <input type="radio" name="time_slot_id"
                 value="<?php echo $slot['id']; ?>"
-                <?php echo $isBooked ? 'disabled' : ''; ?> required>
+                <?php echo $isBooked ? 'disabled' : ''; ?>>
 
             <?php echo $slot['start_time'] . " - " . $slot['end_time']; ?>
 
