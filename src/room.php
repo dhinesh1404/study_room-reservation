@@ -1,6 +1,5 @@
 <?php
 
-require_once './welcome.php';
 
 $room_id = isset($_GET['id'])? $_GET['id']: '';
 
@@ -10,6 +9,8 @@ if(empty($room_id)) {
     echo "Invalid Room";
     exit;
 }
+
+require_once './welcome.php';
 
 try{
     // DB connect 
@@ -77,7 +78,6 @@ try{
 
 <!-- BOOKING FORM -->
 <form action="booking_process.php" method="post">
-
     <input type="hidden" name="room_id" value="<?php echo $room_id; ?>">
     <input type="hidden" name="date" value="<?php echo $date; ?>">
 
